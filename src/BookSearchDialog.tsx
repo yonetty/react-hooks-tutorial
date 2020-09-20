@@ -17,6 +17,7 @@ function extractBooks(json: any): BookDescription[] {
 
 type BookSearchDialogProps = {
   maxResults: number;
+  onBookAdd: (book: BookDescription) => void;
 }
 
 const BookSearchDialog = (props: BookSearchDialogProps) => {
@@ -59,7 +60,7 @@ const BookSearchDialog = (props: BookSearchDialogProps) => {
 
     }
     setIsSearching(false);
-  }, [isSearching, title, author]);
+  }, [isSearching]);
 
   const handleSearchClick = () => {
     if (!title && !author) {
@@ -69,14 +70,25 @@ const BookSearchDialog = (props: BookSearchDialogProps) => {
     setIsSearching(true);
   }
 
-  const bookItems = books.map((b, idx) => <BookItem {...b} key={idx} />);
+  const handleBookAdd = (book: BookDescription) => {
+    props.onBookAdd(book);
+  }
+
+  const bookItems = books.map((b, idx) => {
+    return (
+      <BookItem
+        description={b}
+        onBookAdd={(b) => handleBookAdd(b)}
+        key={idx} />
+    );
+  });
 
   return (
     <div className="dialog">
       <div className="operation">
         <div className="conditions">
-          <input type="text" onChange={handleTitleInputChange} placeholder="タイトルで検索"></input>
-          <input type="text" onChange={handleAuthorInputChange} placeholder="著者名で検索"></input>
+          <input type="text" onChange={handleTitleInputChange} placeholder="タイトルで検索" />
+          <input type="text" onChange={handleAuthorInputChange} placeholder="著者名で検索" />
         </div>
         <div className="button-like" onClick={handleSearchClick}>検索</div>
       </div>

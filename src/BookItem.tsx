@@ -1,8 +1,16 @@
 import React from 'react';
 import BookDescription from './BookDescription';
 
-const BookItem = (props: BookDescription) => {
-  const { title, authors, thumbnail } = props;
+type BookItemProps = {
+  description: BookDescription;
+  onBookAdd: (book: BookDescription) => void;
+}
+
+const BookItem = (props: BookItemProps) => {
+  const { title, authors, thumbnail } = props.description;
+  const handleAddBookClick = () => {
+    props.onBookAdd(props.description);
+  }
   return (
     <div className="book-item">
       <h2 title={title}>{title}</h2>
@@ -11,7 +19,9 @@ const BookItem = (props: BookDescription) => {
         ? <img src={thumbnail} alt="" />
         : null
       }
-      <div className="add-book"><span>+</span></div>
+      <div className="add-book" onClick={handleAddBookClick}>
+        <span>+</span>
+      </div>
     </div>
   );
 }
