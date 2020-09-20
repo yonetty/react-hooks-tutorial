@@ -1,5 +1,5 @@
 import React from 'react';
-import BookToRead from './BookToRead';
+import { BookToRead } from './BookToRead';
 
 type BookRowProps = {
   book: BookToRead;
@@ -20,8 +20,8 @@ const BookRow = (props: BookRowProps) => {
 
   return (
     <div className="book-row">
-      <div className="title">{title}</div>
-      <div className="authors">{authors}</div>
+      <div title={title} className="title">{title}</div>
+      <div title={authors} className="authors">{authors}</div>
       <input type="text" className="memo" value={memo} onChange={handleMemoChange} />
       <div className="delete-row" onClick={handleDeleteClick}>削除</div>
     </div>

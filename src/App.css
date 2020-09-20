@@ -12,6 +12,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: rgb(17, 39, 104);
+  border-bottom: solid 2px rgb(22, 164, 207);
 }
 
 h1 {
@@ -25,7 +27,7 @@ h1 {
 .button-like {
   margin: 5px;
   padding: 4px;
-  width: 100px;
+  width: 140px;
   height: 2rem;
   text-align: center;
   font-size: 1.4rem;
@@ -72,7 +74,7 @@ h1 {
   flex-wrap: wrap;
 }
 
-.book-item {
+.book-search-item {
   margin: 5px;
   padding: 5px;
   background-color: #181a1f;
@@ -82,7 +84,7 @@ h1 {
   position: relative;
 }
 
-.book-item h2 {
+.book-search-item h2 {
   font-size: 1.2rem;
   height: 1.4rem;
   margin: 2px 2px 2px;
@@ -94,7 +96,13 @@ h1 {
   white-space: nowrap;
 }
 
-.book-item .add-book {
+.book-search-item .authors {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.book-search-item .add-book {
   width: 40px;
   height: 40px;
   position: absolute;
@@ -109,11 +117,11 @@ h1 {
   cursor: pointer;
 }
 
-.book-item .add-book:hover {
+.book-search-item .add-book:hover {
   opacity: 0.8;
 }
 
-.book-item div {
+.book-search-item div {
   font-size: 1.0rem;
   height: 1.2rem;
   margin: 2px 2px 2px;
@@ -121,7 +129,7 @@ h1 {
   text-align: right;
 }
 
-.book-item img {
+.book-search-item img {
   margin: 10px 5px;
   height: 180px;
 }
@@ -180,7 +188,7 @@ h1 {
   height: 1.6rem;
   text-align: center;
   font-size: 1.2rem;
-  background-color: chocolate;
+  background-color: rgb(230, 163, 20);
   cursor: pointer;
 }
 

@@ -1,20 +1,20 @@
 import React from 'react';
-import BookDescription from './BookDescription';
+import { BookDescription } from './BookDescription';
 
-type BookItemProps = {
+type BookSearchItemProps = {
   description: BookDescription;
   onBookAdd: (book: BookDescription) => void;
 }
 
-const BookItem = (props: BookItemProps) => {
+const BookSearchItem = (props: BookSearchItemProps) => {
   const { title, authors, thumbnail } = props.description;
   const handleAddBookClick = () => {
     props.onBookAdd(props.description);
   }
   return (
-    <div className="book-item">
+    <div className="book-search-item">
       <h2 title={title}>{title}</h2>
-      <div>{authors}</div>
+      <div className="authors" title={authors}>{authors}</div>
       {thumbnail
         ? <img src={thumbnail} alt="" />
         : null
@@ -26,4 +26,4 @@ const BookItem = (props: BookItemProps) => {
   );
 }
 
-export default BookItem;
+export default BookSearchItem;

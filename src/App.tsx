@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import './App.css';
 import BookSearchDialog from './BookSearchDialog';
-import BookDescription from './BookDescription';
 import BookRow from './BookRow';
-import BookToRead from './BookToRead';
+import { BookDescription } from './BookDescription';
+import { BookToRead } from './BookToRead';
 
 Modal.setAppElement('#root');
 
 const customStyles = {
   overlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.7)"
+    backgroundColor: "rgba(0, 0, 0, 0.8)"
   },
   content: {
     top: '50%',
@@ -23,9 +23,22 @@ const customStyles = {
   }
 };
 
+const APP_KEY = "react-hooks-tutorial";
+
 const App = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [books, setBooks] = useState([] as BookToRead[]);
+
+  useEffect(() => {
+    const storedBooks = localStorage.getItem(APP_KEY);
+    if (storedBooks) {
+      setBooks(JSON.parse(storedBooks));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(APP_KEY, JSON.stringify(books));
+  }, [books]);
 
   const handleAddClick = () => {
     setModalIsOpen(true);
@@ -36,12 +49,7 @@ const App = () => {
   }
 
   const handleBookAdd = (book: BookDescription) => {
-    const newBook = {
-      id: books.length + 1,
-      title: book.title,
-      authors: book.authors,
-      memo: "",
-    }
+    const newBook: BookToRead = { ...book, id: books.length + 1, memo: "" };
     const newBooks = [...books, newBook];
     setBooks(newBooks);
     setModalIsOpen(false);
@@ -76,7 +84,7 @@ const App = () => {
     <div className="App">
       <section className="nav">
         <h1>読みたい本リスト</h1>
-        <div className="button-like" onClick={handleAddClick}>追加</div>
+        <div className="button-like" onClick={handleAddClick}>本を追加</div>
       </section>
       <section className="main">
         {bookRows}

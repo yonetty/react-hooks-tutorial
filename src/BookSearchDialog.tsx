@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
-import BookDescription from './BookDescription';
-import BookItem from './BookItem';
+import { BookDescription } from './BookDescription';
+import BookSearchItem from './BookSearchItem';
 
 function extractBooks(json: any): BookDescription[] {
   const items: any[] = json.items;
@@ -13,6 +12,18 @@ function extractBooks(json: any): BookDescription[] {
       thumbnail: volumeInfo.imageLinks ? volumeInfo.imageLinks.smallThumbnail : "",
     }
   });
+}
+
+function buildSearchUrl(title: string, author: string, maxResults: number): string {
+  let url = "https://www.googleapis.com/books/v1/volumes?q=";
+  const conditions: string[] = []
+  if (title) {
+    conditions.push(`intitle:${title}`);
+  }
+  if (author) {
+    conditions.push(`inauthor:${author}`);
+  }
+  return url + conditions.join('+') + `&maxResults=${maxResults}`;
 }
 
 type BookSearchDialogProps = {
@@ -35,17 +46,8 @@ const BookSearchDialog = (props: BookSearchDialogProps) => {
   }
 
   useEffect(() => {
-    console.log(`useEffect: ${isSearching}`);
     if (isSearching) {
-      let url = "https://www.googleapis.com/books/v1/volumes?q=";
-      const conditions: string[] = []
-      if (title) {
-        conditions.push(`intitle:${title}`);
-      }
-      if (author) {
-        conditions.push(`inauthor:${author}`);
-      }
-      url = url + conditions.join('+') + `&maxResults=${props.maxResults}`;
+      const url = buildSearchUrl(title, author, props.maxResults);
       fetch(url)
         .then((res) => {
           return res.json();
@@ -57,7 +59,6 @@ const BookSearchDialog = (props: BookSearchDialogProps) => {
         }).catch((err) => {
           console.error(err);
         });
-
     }
     setIsSearching(false);
   }, [isSearching]);
@@ -76,10 +77,11 @@ const BookSearchDialog = (props: BookSearchDialogProps) => {
 
   const bookItems = books.map((b, idx) => {
     return (
-      <BookItem
+      <BookSearchItem
         description={b}
         onBookAdd={(b) => handleBookAdd(b)}
-        key={idx} />
+        key={idx}
+      />
     );
   });
 
