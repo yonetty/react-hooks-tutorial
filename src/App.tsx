@@ -47,7 +47,7 @@ const App = () => {
     setModalIsOpen(false);
   }
 
-  const handleMemoChange = (id: number, memo: string) => {
+  const handleBookMemoChange = (id: number, memo: string) => {
     const newBooks = books.map((b) => {
       return b.id === id
         ? { ...b, memo: memo }
@@ -56,9 +56,19 @@ const App = () => {
     setBooks(newBooks);
   }
 
+  const handleBookDelete = (id: number) => {
+    const newBooks = books.filter((b) => b.id !== id);
+    setBooks(newBooks);
+  }
+
   const bookRows = books.map((b) => {
     return (
-      <BookRow book={b} key={b.id} onMemoChange={(memo) => handleMemoChange(b.id, memo)} />
+      <BookRow
+        book={b}
+        key={b.id}
+        onMemoChange={(id, memo) => handleBookMemoChange(id, memo)}
+        onDelete={(id) => handleBookDelete(id)}
+      />
     );
   });
 
