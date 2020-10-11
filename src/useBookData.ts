@@ -25,7 +25,7 @@ function buildSearchUrl(title: string, author: string, maxResults: number): stri
   return url + conditions.join('+') + `&maxResults=${maxResults}`;
 }
 
-const useBookData = (title: string, author: string, maxResults: number) => {
+export const useBookData = (title: string, author: string, maxResults: number) => {
   const [books, setBooks] = useState([] as BookDescription[]);
 
   useEffect(() => {
@@ -47,5 +47,3 @@ const useBookData = (title: string, author: string, maxResults: number) => {
 
   return books;
 }
-
-export default useBookData;

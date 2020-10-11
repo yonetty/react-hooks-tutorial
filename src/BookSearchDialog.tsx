@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { BookDescription } from './BookDescription';
 import BookSearchItem from './BookSearchItem';
-import useBookData from './useBookData';
+import { useBookData } from './useBookData';
 
 type BookSearchDialogProps = {
   maxResults: number;
