@@ -49,7 +49,7 @@ const App = () => {
   }
 
   const handleBookAdd = (book: BookDescription) => {
-    const newBook: BookToRead = { ...book, id: books.length + 1, memo: "" };
+    const newBook: BookToRead = { ...book, id: Date.now(), memo: "" };
     const newBooks = [...books, newBook];
     setBooks(newBooks);
     setModalIsOpen(false);
